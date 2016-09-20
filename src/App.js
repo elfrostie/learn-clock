@@ -1,20 +1,39 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Answers from './answers.js';
+import Clock from './clock.js';
+import gamelogic from './gamelogic.js';
+import GuessLabel from './correctguesseslabel.js';
+import { Jumbotron, Grid, Row, Col, Button } from 'react-bootstrap';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'animate.css/animate.css';
+
+gamelogic.newGame();
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+      return (
+          <Grid>
+              <Jumbotron>
+                  <h1>Hvad er klokken?</h1>
+              </Jumbotron>
+              <Row>
+                  <Col md={ 6 }>
+                      <Clock />
+                  </Col>
+                  <Col md={ 6 }>
+                      <Answers />
+                      <div>
+                          <GuessLabel />
+                      </div>
+                      <div>
+                          <Button bsStyle="primary" onClick={gamelogic.newGame}>Nyt spil</Button>
+                      </div>
+                  </Col>
+              </Row>
+          </Grid>
+      );
   }
 }
 
