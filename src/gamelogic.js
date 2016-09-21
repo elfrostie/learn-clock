@@ -1,9 +1,17 @@
+/* @flow */
 import { extendObservable, action } from 'mobx';
 import randomTime from './time/randomtime.js';
-
+import type { TimeType } from './time/randomtime.js';
 
 class Logic {
     resolution = 5;
+    possibleAnswers: Array<TimeType> = [];
+    correctAnswer: number;
+    guessWrong: bool;
+    guessRight: bool;
+    newGame() : void {};
+    guess(index: number) : void {};
+
     constructor() {
         extendObservable(this, {
             possibleAnswers: [],
@@ -35,4 +43,6 @@ class Logic {
     }
 }
 
-export default new Logic();
+const logic = new Logic();
+
+export default logic;

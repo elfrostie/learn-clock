@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import gamelogic from './gamelogic.js';
@@ -10,16 +11,19 @@ const clockStyle = {
 
 class Clock extends Component {
 
-    ctx: null;
+    ctx: CanvasRenderingContext2D;
     radius;
 
     componentDidMount() {
-        const canvas = this.refs['canvas'];
-        this.ctx = canvas.getContext('2d');
-        const radius = canvas.height / 2;
-        this.ctx.translate(radius, radius);
-        this.radius = radius * 0.9;
-        this.drawClock(this.props.time);
+        const canvas : HTMLCanvasElement = this.refs['canvas'];
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+            this.ctx = ctx;
+            const radius = canvas.height / 2;
+            this.ctx.translate(radius, radius);
+            this.radius = radius * 0.9;
+            this.drawClock(this.props.time);
+        }
     }
 
     componentDidUpdate() {

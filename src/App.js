@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from 'react';
 import Answers from './answers.js';
 import Clock from './clock.js';

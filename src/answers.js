@@ -22,7 +22,12 @@ const answers = observer(() => {
     );
 });
 
-const AnswerButton = observer(class AnswerButton extends Component {
+type AnswerButtonProps = {
+    index: number,
+    children?: React.Element<*>,
+};
+
+class _AnswerButton extends Component<void, AnswerButtonProps, void> {
 
     onClick = () => {
         gamelogic.guess(this.props.index);
@@ -35,7 +40,8 @@ const AnswerButton = observer(class AnswerButton extends Component {
     render() {
         return this.renderDefault();
     }
-});
+};
 
+const AnswerButton : Class<_AnswerButton> = observer(_AnswerButton);
 export default answers;
 
