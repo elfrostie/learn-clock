@@ -1,8 +1,9 @@
+/* @flow */
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import gamelogic from './gamelogic.js';
 import translator from './time/translator.js';
-import { Button, Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 const buttonStyle = {
     marginRight: "30px",
