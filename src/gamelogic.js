@@ -7,18 +7,17 @@ class Logic {
     resolution = 5;
     possibleAnswers: Array<TimeType> = [];
     correctAnswer: number;
-    guessWrong: bool;
-    guessRight: bool;
     newGame() : void {};
-    guess(index: number) : void {};
+    correctGuesses: number;
+    wrongGuesses: number;
+    guess(index: number) : bool { return true; };
 
     constructor() {
         extendObservable(this, {
             possibleAnswers: [],
             correctAnswer: 0,
-            guessRight: false,
-            guessWrong: false,
             correctGuesses: 0,
+            wrongGuesses: 0,
             newGame: action(() => {
                 this.possibleAnswers = [];
                 for (let i = 0; i < 4; i++) {
@@ -28,17 +27,13 @@ class Logic {
             }),
             guess: action(index => {
                 if (index === this.correctAnswer) {
-                    this.guessRight = true;
                     this.correctGuesses++;
+                    return true;
                 } else {
-                    this.guessWrong = true;
+                    this.wrongGuesses++;
+                    return false;
                 }
             }),
-            reset: action(() => {
-                this.guessWrong = false;
-                this.guessRight = false;
-            }),
-
         });
     }
 }

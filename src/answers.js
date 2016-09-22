@@ -28,18 +28,46 @@ type AnswerButtonProps = {
     children?: React.Element<*>,
 };
 
-class _AnswerButton extends Component<void, AnswerButtonProps, void> {
+class _AnswerButton extends Component {
+    props: AnswerButtonProps;
+    state: { correct: "default" | "correct" | "wrong" }
 
-    onClick = () => {
-        gamelogic.guess(this.props.index);
+    constructor(props) {
+        super(props);
+        this.state = { correct: "default" };
     }
 
-    renderDefault = () => {
-        return <Button className="animated bounce" style={buttonStyle} onClick={this.onClick}>{this.props.children}</Button>;
+    onClick = () => {
+        const correct = gamelogic.guess(this.props.index);
+        this.setState({
+            correct: correct ? "correct" : "wrong",
+        });
+        if (correct) {
+            window.setTimeout(() => {
+                this.setState({ correct: 'default' });
+                gamelogic.newGame();
+            }, 2000);
+        } else {
+            window.setTimeout(() => {
+                this.setState({ correct: 'default' });
+            }, 2000);
+        }
     }
 
     render() {
-        return this.renderDefault();
+        let className : string;
+        let style : string;
+        if (this.state.correct === "correct") {
+            className = "animated pulse";
+            style = "success";
+        }
+
+        if (this.state.correct === "wrong") {
+            className = "animated bounce";
+            style = "danger";
+        }
+
+        return <Button className={className} bsStyle={style} style={buttonStyle} onClick={this.onClick}>{this.props.children}</Button>;
     }
 };
 
