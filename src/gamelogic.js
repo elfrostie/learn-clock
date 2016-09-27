@@ -19,10 +19,12 @@ class Logic {
             correctGuesses: 0,
             wrongGuesses: 0,
             newGame: action(() => {
-                this.possibleAnswers = [];
-                for (let i = 0; i < 4; i++) {
-                    this.possibleAnswers.push(randomTime(this.resolution));
-                    this.correctAnswer = Math.floor(Math.random() * 4);
+                this.possibleAnswers.clear();
+                while (this.possibleAnswers.length < 4) {
+                    const candidate = randomTime(this.resolution);
+                    if (!this.possibleAnswers.find(item => item.hours === candidate.hours && item.minutes === candidate.minutes)) {
+                        this.possibleAnswers.push(candidate);
+                    }
                 }
             }),
             guess: action(index => {
